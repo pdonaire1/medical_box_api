@@ -111,17 +111,17 @@ WSGI_APPLICATION = 'medical_box_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ['DB_NAME'],
-#         'USER': os.environ['DB_USERNAME'],
-#         'PASSWORD': os.environ['DB_PASSWORD'],
-#         'HOST': os.environ['DB_HOSTNAME'],
-#         'PORT': os.environ['DB_PORT'],
-#         'ATOMIC_REQUESTS': True,
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': os.environ['DB_NAME'],
+        # 'USER': os.environ['DB_USERNAME'],
+        # 'PASSWORD': os.environ['DB_PASSWORD'],
+        # 'HOST': os.environ['DB_HOSTNAME'],
+        # 'PORT': os.environ['DB_PORT'],
+        'ATOMIC_REQUESTS': True,
+    }
+}
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookAppOAuth2',
