@@ -1,0 +1,19 @@
+deploy:
+ $ git push heroku master
+ $ heroku ps:scale web=1
+ $ heroku open
+
+database:
+ $ heroku run python manage.py migrate
+ $ heroku run python manage.py createsuperuser
+
+maintenace the page:
+ $ heroku maintenance:on
+ $ heroku maintenance:off
+
+
+enviroments vars:
+ $ heroku config:set GITHUB_USERNAME=pdonaire1
+ $ heroku config:get GITHUB_USERNAME
+ $ heroku config
+
