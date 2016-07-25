@@ -209,13 +209,10 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '<your app secret goes here'
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
-
-
-########## HEROKU CONFIG ###########
+########## HEROKU CONFIGURATION ###########
 import dj_database_url
 db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-# Extra heroku
+DATABASES = {'default': dj_database_url.config()}
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 DEBUG = True
@@ -235,9 +232,6 @@ STATICFILES_DIRS = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-# database
-
-
 
 ########### END HEROKU CONFIG #######
 
