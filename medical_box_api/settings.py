@@ -12,8 +12,17 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 ########## HEROKU CONFIG ###########
 import dj_database_url
-db_from_env = dj_database_url.config() #db_from_env = dj_database_url.config(conn_max_age=500)
+db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
+# Extra heroku
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ALLOWED_HOSTS = ['*']
+DEBUG = False
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+# End extra heroku
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'

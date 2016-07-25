@@ -2,3 +2,5 @@
 *.txt~
 *.html~
 *.py~
+__pycache__
+local_settings.py
