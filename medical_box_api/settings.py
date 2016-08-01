@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'cities_light',
     'cities_customized',
+    'corsheaders',
     'utils',
     'clinics',
     'doctors',
@@ -77,6 +78,7 @@ CITIES_LIGHT_INCLUDE_COUNTRIES = [
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -106,7 +108,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'medical_box_api.wsgi.application'
-
+AWS_HEADERS = {  
+    # see http://developer.yahoo.com/performance/rules.html#expires
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=94608000',
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -157,6 +163,25 @@ REST_FRAMEWORK = {
 #     'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.jwt_response_payload_handler',
 #     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=21600)
 # }
+JWT_AUTH = {
+    # 'JWT_ALLOW_REFRESH': True,
+    # 'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.jwt_response_payload_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=21600)
+}
+
+# CORS_ORIGIN_ALLOW_ALL:
+# if True, the whitelist will not be used and all origins will be accepted
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken'
+)
+
 
 
 # Password validation
@@ -233,6 +258,6 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-########### END HEROKU CONFIG #######
+########### END HEROKU CONFIGURATION #######
 
 

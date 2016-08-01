@@ -3,6 +3,7 @@ from django.contrib import admin
 from rest_framework.authtoken import views
 from django.conf.urls import include
 from . routers import router
+from utils.views import ChangePasswordViewSet
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -14,6 +15,7 @@ urlpatterns = [
     url(r'^api/', include('cities_light.contrib.restframework3')),
     url(r'^api/', include(router.urls)),
     url(r'^api/api-token-auth/', views.obtain_auth_token)
+    url(r'^api/change_password/', ChangePasswordViewSet.as_view())
 ]
 
 # urlpatterns += router.urls
