@@ -14,7 +14,7 @@ urlpatterns = [
         'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^api/', include('cities_light.contrib.restframework3')),
     url(r'^api/', include(router.urls)),
-    url(r'^api/api-token-auth/', views.obtain_auth_token)
+    url(r'^api/api-token-auth/', views.obtain_auth_token),
     url(r'^api/change_password/', ChangePasswordViewSet.as_view())
 ]
 

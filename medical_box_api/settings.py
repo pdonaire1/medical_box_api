@@ -181,7 +181,10 @@ CORS_ALLOW_HEADERS = (
     'authorization',
     'x-csrftoken'
 )
-
+# CORS_ORIGIN_WHITELIST = (
+#     'google.com',
+#     'hostname.example.com'
+# )
 
 
 # Password validation

@@ -38,3 +38,4 @@ six==1.10.0
 static3==0.7.0
 whitenoise==3.2
 wsgiref==0.1.2
+django-cors-headers==1.1.0
