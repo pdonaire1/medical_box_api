@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-08 22:03+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/doctors/views.py:103
+msgid "Welcome to my site."
+msgstr "Bienvenido a MedicalBox"
+
+#: medical_box_api/settings.py:93
+msgid "English"
+msgstr ""
+
+#: medical_box_api/settings.py:94
+msgid "Español"
+msgstr ""
+
+#: templates/admin/base_site.html:3
+msgid "Django site admin"
+msgstr ""
+
+#: templates/admin/base_site.html:81
+msgid "Django administration"
+msgstr ""
+
+######## MY CUSTOM MESSAGES ########
+# python mage.py compilemessages -l es
+
+msgid "Doctor already exists with this email"
+msgstr "Doctor existente con este correo"
+
+msgid "Password do not belong"
+msgstr "La Contraseña no corresponde"
+
+msgid "Worong parameter: email"
+msgstr "Error de parametros: email"

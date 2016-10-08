@@ -2,6 +2,7 @@
     Created by: @pdonaire1
     Ing. Pablo Alejandro Gonzalez Donaire
 """
+from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from doctors.serializers import DoctorSerializer
 from django.http import JsonResponse
@@ -41,6 +42,9 @@ class DoctorViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         data = self.request.data
+        if not 'email' in data or data['email'] == "":
+            raise serializers.ValidationError(
+                {"error": _('Worong parameter: email'), "status": 400, "exists": False})
         first_name = data["first_name"] if "first_name" in data else None
         last_name = data["last_name"] if "last_name" in data else None
         email = data["email"]
@@ -50,11 +54,14 @@ class DoctorViewSet(viewsets.ModelViewSet):
                 user = User.objects.get(email=email)
                 if Doctor.objects.filter(user=user).exists():
                     raise serializers.ValidationError(
-                        {"error":'Doctor already exists', "status": 400, "exists": True})
+                        {
+                            "error": _('Doctor already exists with this email'),
+                            "status": 400, "exists": True
+                        })
 
                 if not user.check_password(password):
                     raise serializers.ValidationError(
-                        {"error":'Password do not belong', "status": 400})
+                        {"error": _('Password do not belong'), "status": 400})
                 else:
                     if email:
                         user.username=email
@@ -84,3 +91,5 @@ class DoctorViewSet(viewsets.ModelViewSet):
         user.last_name = self.request.data["user"]["last_name"]
         user.save()
         serializer.save()
+
+
