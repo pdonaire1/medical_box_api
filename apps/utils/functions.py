@@ -1,5 +1,7 @@
-
-
+"""
+    Created by: @pdonaire1
+    Ing. Pablo Alejandro Gonzalez Donaire
+"""
 from django.utils.six import BytesIO
 from rest_framework.parsers import JSONParser
 from django.core import serializers

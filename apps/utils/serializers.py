@@ -1,3 +1,7 @@
+"""
+    Created by: @pdonaire1
+    Ing. Pablo Alejandro Gonzalez Donaire
+"""
 from django.contrib.auth.models import User
 from doctors.models import Doctor
 from rest_framework import serializers
