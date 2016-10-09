@@ -27,7 +27,7 @@ class ClinicViewSet(viewsets.ModelViewSet):
       * Update: PATCH or PUT /api/clinics/ID (login required as a Doctor) => **{(Optionals)-> {"name", "zip_code", "address", "latitude", "longitude", "phone_one", "phone_two", "country_id", "city_id" }**
       * Update Doctors: GET, POST /api/clinics/ID/clinic_doctors/ (login required as a Doctor who has created the clinic) => **{"doctors": [1,2,3]}  ->this will remove all the doctors registered and will to add the doctors from the list**  (USERS' IDS ARE NOT THE SAME THAT DOCTOR'S IDS).
       * Update Admin: GET, POST /api/clinics/ID/clinic_admin/ => **{"users": [1,2,3]}** (USERS' IDS ARE NOT THE SAME THAT DOCTOR'S IDS).
-      * Delete:  /api/clinics/ID/delete_recover => **if is active, will and is posted, this object will be disable or removed and vice versa**.
+      * Delete: POST /api/clinics/ID/delete_recover => **if is active, will and is posted, this object will be disable or removed and vice versa**.
       * To Authenticate /api/api-token-auth/ parameters => **{"username", "password"}**
     """
     model = Clinic
