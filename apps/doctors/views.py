@@ -2,7 +2,6 @@
     Created by: @pdonaire1
     Ing. Pablo Alejandro Gonzalez Donaire
 """
-from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from doctors.serializers import DoctorSerializer
 from django.http import JsonResponse
@@ -14,13 +13,14 @@ from doctors.models import Doctor
 from rest_framework import filters
 from dry_rest_permissions.generics import DRYPermissions
 from rest_framework import serializers
+from django.utils.translation import ugettext as _
 
 class DoctorViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for listing or retrieving Patients.
     > Parameters:
 
-      * Create: POST /api/doctors/ => **phone_number, name, email, password, (Optionas => first_name, last_name)**.
+      * Create: POST /api/doctors/ => **email, password, (Optionas => name, first_name, last_name, phone_number)**.
       * Consult All: GET /api/doctors/ => (Optionals: **phone_number, name, is_active, user__first_name, user__last_name, user__email**).
       * Consult One: GET /api/doctors/ID.
       * Update: PATCH or PUT /api/doctors/ID => **{"id", (Optionals)-> {"phone_number", "name", "user": {"first_name", "last_name", "id"}}**
@@ -45,8 +45,8 @@ class DoctorViewSet(viewsets.ModelViewSet):
         if not 'email' in data or data['email'] == "":
             raise serializers.ValidationError(
                 {"error": _('Worong parameter: email'), "status": 400, "exists": False})
-        first_name = data["first_name"] if "first_name" in data else None
-        last_name = data["last_name"] if "last_name" in data else None
+        first_name = data["first_name"] if "first_name" in data else ''
+        last_name = data["last_name"] if "last_name" in data else ''
         email = data["email"]
         password = data["password"]
         if email:
@@ -82,7 +82,7 @@ class DoctorViewSet(viewsets.ModelViewSet):
             serializer.save(user=user, is_active=True)
         else:
             raise serializers.ValidationError(
-                {"error":'Invalid fields', "status": 400})
+                {"error": _('Invalid fields'), "status": 400})
 
     def perform_update(self, serializer):
         id = self.request.data["user"]["id"]

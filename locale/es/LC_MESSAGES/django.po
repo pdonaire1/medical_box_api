@@ -41,6 +41,9 @@ msgstr ""
 ######## MY CUSTOM MESSAGES ########
 # python mage.py compilemessages -l es
 
+msgid "Invalid fields"
+msgstr "Campos inválidos"
+
 msgid "Doctor already exists with this email"
 msgstr "Doctor existente con este correo"
 
@@ -49,3 +52,13 @@ msgstr "La Contraseña no corresponde"
 
 msgid "Worong parameter: email"
 msgstr "Error de parametros: email"
+
+msgid "You have to be registred as an user admin of this clinic"
+msgstr "Debes tener permiso de administrador para la clinica"
+
+msgid "Patient already exists"
+msgstr "El paciente ya existe"
+
+# Clinic
+msgid "Clinic already exists"
+msgstr "La clinica ya está registrada"

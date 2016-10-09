@@ -36,7 +36,20 @@ class Clinic(models.Model):
         if ClinicAdmin.objects.filter(clinic=self, user=user).exists():
             return True
         return False
-        
+    def is_already_created(self, data, user):
+        """
+            This method allow knows if a doctor has
+            a clinic created with the same name and 
+            whether the doctor work in there
+        """
+        if Clinic.objects.filter(name=data['name']).exists():
+            clinic = Clinic.objects.get(name=data['name'], is_active=True)
+            is_admin = ClinicAdmin.objects.filter(
+                clinic=clinic, user=user).exists()
+            if clinic.created_by == user or is_admin:
+                return True
+        return False
+
     ######################
     # Global Permissions #
     ######################

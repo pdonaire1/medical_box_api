@@ -12,13 +12,14 @@ from patients.models import Patient
 from rest_framework import filters
 from dry_rest_permissions.generics import DRYPermissions
 from rest_framework import serializers
+from django.utils.translation import ugettext as _
 
 class PatientViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for listing or retrieving Patients.
     > Parameters:
 
-      * Create: POST /api/patients/ => **phone_number, (Optionals => first_name, last_name, address), email, password**.
+      * Create: POST /api/patients/ => **email, password, (Optionals => first_name, last_name, address, phone_number)**.
       * Consult All: GET /api/patients/ => (Optionals: **phone_number, address, is_active, user__first_name, user__last_name, user__email**).
       * Consult One: GET /api/patients/ID.
       * Update: PATCH or PUT /api/patients/ID (login required as a patient) => **{"id", (Optionals)-> {"phone_number", "address", "user": {"first_name", "last_name", "id"}}**
@@ -39,8 +40,8 @@ class PatientViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         data = self.request.data
-        first_name = data["first_name"] if "first_name" in data else None
-        last_name = data["last_name"] if "last_name" in data else None
+        first_name = data["first_name"] if "first_name" in data else ''
+        last_name = data["last_name"] if "last_name" in data else ''
         email = data["email"]
         password = data["password"]
         if email:
@@ -48,10 +49,10 @@ class PatientViewSet(viewsets.ModelViewSet):
                 user = User.objects.get(email=email)
                 if Patient.objects.filter(user=user).exists():
                     raise serializers.ValidationError(
-                        {"error":'Patient already exists', "status": 400, "exists": True})
+                        {"error": _('Patient already exists'), "status": 400, "exists": True})
                 if not user.check_password(password):
                     raise serializers.ValidationError(
-                        {"error":'Password do not belong', "status": 400})
+                        {"error":_('Password do not belong'), "status": 400})
                 else:
                     if email:
                         user.username=email
@@ -73,7 +74,7 @@ class PatientViewSet(viewsets.ModelViewSet):
             serializer.save(user=user, is_active=True)
         else:
             raise serializers.ValidationError(
-                {"error":'Invalid fields', "status": 400})
+                {"error": _('Invalid fields'), "status": 400})
 
     def perform_update(self, serializer):
         id = self.request.data["user"]["id"]

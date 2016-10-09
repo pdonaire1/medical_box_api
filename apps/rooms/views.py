@@ -13,6 +13,7 @@ from utils.functions import build_json_object
 from clinics.models import Clinic
 from rooms.models import Room
 from rest_framework.decorators import detail_route, list_route
+from django.utils.translation import ugettext as _
 
 class RoomViewSet(viewsets.ModelViewSet):
     """
@@ -39,14 +40,17 @@ class RoomViewSet(viewsets.ModelViewSet):
         data = self.request.data
         if not "clinic_id" in data:
             raise serializers.ValidationError(
-                {"error":'Invalid fields', "status": 400})
+                {"error": _('Invalid fields'), "status": 400})
 
         clinic = Clinic.objects.get(id=data["clinic_id"])
         if clinic.is_admin(self.request.user):
             serializer.save(clinic_id=data['clinic_id'])
         else:
             raise serializers.ValidationError(
-                {"error":'Current user is not admin to this clinic', "status": 400})
+                {
+                    "error": _('You have to be registred as an user admin of this clinic'),
+                    "status": 400
+                })
 
 
     @list_route(methods=['get'], url_path='clinic')

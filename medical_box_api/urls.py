@@ -5,7 +5,9 @@ from rest_framework.authtoken import views
 from django.conf.urls import include
 from . routers import router
 from utils.views import ChangePasswordViewSet
-import doctors
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     url(r'^auth/', include('rest_framework_social_oauth2.urls')),
     url(r'^api-auth/', include('rest_framework.urls', 
@@ -15,7 +17,7 @@ urlpatterns = [
     url(r'^api/api-token-auth/', views.obtain_auth_token),
     url(r'^api/change_password/', ChangePasswordViewSet.as_view()),
     url(r'^api/', include('cities_light.contrib.restframework3')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += i18n_patterns(
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
