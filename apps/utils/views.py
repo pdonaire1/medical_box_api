@@ -129,6 +129,8 @@ class ObtainAuthToken(APIView):
 
         customer_serlialized = []
         stores_serialized = []
+        doctor_serlialized = None
+        patient_serialized = None
         if (len(doctor) > 0):
             doc = doctor.first()
             doctor_serlialized = {
