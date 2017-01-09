@@ -4,6 +4,7 @@
 """
 from django.contrib.auth.models import User
 from clinics.serializers import ClinicSerializer
+from clinics.functions import get_clinics_filtered_query
 from django.http import JsonResponse
 from rest_framework import (
 	status, viewsets, filters, serializers)
@@ -13,7 +14,7 @@ from utils.functions import build_json_object
 from clinics.models import Clinic, ClinicAdmin
 from cities_customized.models import Country, Region, City
 from doctors.models import Doctor
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 from django.utils.translation import ugettext as _
 
 class ClinicViewSet(viewsets.ModelViewSet):
@@ -22,6 +23,7 @@ class ClinicViewSet(viewsets.ModelViewSet):
     > Parameters:
 
       * Create: POST /api/clinics/ (login required as a Doctor) => **name, country_id, city_id, address, (Optionals => zip_code, latitude, longitude, phone_one, phone_two) In headers {"Autorization": "Token XXX"} of the doctor**.
+      * Find Clinics: GET /api/clinics/find_clinic Params (optionals)=> limit, offset, order = options => "desc", order_by = options => first_name, last_name, name, zip_code, address, phone_one, phone_two, country_name, city_name, doctor_first_name, doctor_last_name, name, zip_code, address, phone, country_name
       * Consult All: GET /api/clinics/ => (Optionals: **phone_number, address, is_active, user__first_name, user__last_name, user__email**).
       * Consult One: GET /api/clinics/ID.
       * Update: PATCH or PUT /api/clinics/ID (login required as a Doctor) => **{(Optionals)-> {"name", "zip_code", "address", "latitude", "longitude", "phone_one", "phone_two", "country_id", "city_id" }**
@@ -115,3 +117,14 @@ class ClinicViewSet(viewsets.ModelViewSet):
                 "clinic": clinic_json
             }])
         return Response([{"method": "POST, if is active, will and is posted, this object will be disable or removed and vice versa"}])
+
+    @list_route(methods=['get'])
+    def find_clinic(self, request):
+        clinics = get_clinics_filtered_query(request.query_params)
+        page = self.paginate_queryset(clinics)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(clinics, many=True)
+        return Response(serializer.data)
