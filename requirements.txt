@@ -27,7 +27,7 @@ oauthlib==1.0.3
 progressbar2==3.6.2
 psycopg2==2.6.2
 pydot==1.1.0
-pyparsing==1.5.7
+#pyparsing==1.5.7
 python-dateutil==2.5.3
 python-openid==2.2.5
 python-social-auth==0.2.19
@@ -39,3 +39,5 @@ static3==0.7.0
 whitenoise==3.2
 wsgiref==0.1.2
 django-cors-headers==1.1.0
+pystan==2.15.0.1
+
